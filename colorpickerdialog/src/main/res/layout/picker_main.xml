@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <View
+        android:id="@+id/viewCanvas"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/white" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <SeekBar
+            android:id="@+id/seekR"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/SeekBarRed"
+            android:progress="255"
+            android:max="255"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textR"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:id="@+id/textR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <SeekBar
+            android:id="@+id/seekG"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/SeekBarGreen"
+            android:progress="255"
+            android:max="255"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textG"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:id="@+id/textG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <SeekBar
+            android:id="@+id/seekB"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/SeekBarBlue"
+            android:progress="255"
+            android:max="255"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textB"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:id="@+id/textB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/placeholder_value"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonPositive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/ok"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            style="?attr/borderlessButtonStyle"/>
+        <Button
+            android:id="@+id/buttonNegative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/cancel"
+            android:textColor="@color/colorAccent"
+            android:layout_toStartOf="@id/buttonPositive"
+            android:background="?attr/selectableItemBackground"
+            style="?attr/borderlessButtonStyle"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
