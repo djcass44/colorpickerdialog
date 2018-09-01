@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ColorPicker</string>
+    <string name="app_name">ColorPicker (demo)</string>
+    <string name="action_button">Press me!</string>
 </resources>
