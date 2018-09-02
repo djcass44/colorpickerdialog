@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ public class ColorPickerDialog extends Dialog {
     private View viewCanvas;
     private int colour = 0;
 
+    private final String INSTANCE_COLOUR = "COLOUR";
+
     private ColorPickerDialog(@NonNull Context context, @NonNull IColorPickerReceivable receivable, String textPositive, String textNegative, int startColour) {
         super(context);
         this.context = context;
@@ -48,6 +51,12 @@ public class ColorPickerDialog extends Dialog {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.picker_main);
+
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        getWindow().setAttributes(lp);
 
         viewCanvas = findViewById(R.id.viewCanvas);
 
@@ -66,6 +75,21 @@ public class ColorPickerDialog extends Dialog {
         initSeekListeners();
         initButtonListeners();
 
+        setInitialValues();
+    }
+
+    @NonNull
+    @Override
+    public Bundle onSaveInstanceState() {
+        Bundle bundle = super.onSaveInstanceState();
+        bundle.putInt(INSTANCE_COLOUR, colour);
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        startColour = savedInstanceState.getInt(INSTANCE_COLOUR, Color.WHITE);
         setInitialValues();
     }
 
