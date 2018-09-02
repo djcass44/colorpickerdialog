@@ -11,9 +11,14 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.django.colorpickerdialog.util.ColourUtils;
+
 public class ColorPickerDialog extends Dialog {
     private Context context;
     private IColorPickerReceivable receivable;
+    private String textPositive;
+    private String textNegative;
+    private int startColour = Color.WHITE;
 
     private Button buttonPositive;
     private Button buttonNegative;
@@ -29,10 +34,13 @@ public class ColorPickerDialog extends Dialog {
     private View viewCanvas;
     private int colour = 0;
 
-    public ColorPickerDialog(@NonNull Context context, @NonNull IColorPickerReceivable receivable) {
+    private ColorPickerDialog(@NonNull Context context, @NonNull IColorPickerReceivable receivable, String textPositive, String textNegative, int startColour) {
         super(context);
         this.context = context;
         this.receivable = receivable;
+        this.textPositive = textPositive;
+        this.textNegative = textNegative;
+        this.startColour = startColour;
     }
 
     @Override
@@ -58,7 +66,16 @@ public class ColorPickerDialog extends Dialog {
         initSeekListeners();
         initButtonListeners();
 
-        onValueUpdated();
+        setInitialValues();
+    }
+
+    private void setInitialValues() {
+        buttonPositive.setText(textPositive);
+        buttonNegative.setText(textNegative);
+        int[] colourBreakdown = ColourUtils.getColourBreakdown(startColour);
+        seekR.setProgress(colourBreakdown[0]);
+        seekG.setProgress(colourBreakdown[1]);
+        seekB.setProgress(colourBreakdown[2]);
     }
 
     private void onValueUpdated() {
@@ -126,5 +143,39 @@ public class ColorPickerDialog extends Dialog {
             receivable.onColorChosen(colour);
             dismiss();
         });
+    }
+    public static class Builder {
+        private Context context;
+        private IColorPickerReceivable receivable;
+        private String textPositive;
+        private String textNegative;
+        private int startColour = Color.WHITE;
+
+        public Builder(@NonNull Context context, @NonNull IColorPickerReceivable receivable) {
+            this.context = context;
+            this.receivable = receivable;
+        }
+
+        public Builder setTextPositive(String textPositive) {
+            this.textPositive = textPositive;
+            return this;
+        }
+
+        public Builder setTextNegative(String textNegative) {
+            this.textNegative = textNegative;
+            return this;
+        }
+
+        public Builder setStartColour(int startColour) {
+            this.startColour = startColour;
+            return this;
+        }
+        public ColorPickerDialog build() {
+            if(textPositive == null || textPositive.isEmpty())
+                textPositive = context.getString(android.R.string.ok);
+            if(textNegative == null || textNegative.isEmpty())
+                textNegative = context.getString(android.R.string.cancel);
+            return new ColorPickerDialog(context, receivable, textPositive, textNegative, startColour);
+        }
     }
 }
