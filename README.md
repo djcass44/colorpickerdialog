@@ -24,7 +24,7 @@ allprojects {
 ```
 dependencies {
     ...
-    implementation 'com.github.djcass44:colorpickerdialog:-SNAPSHOT'
+    implementation 'com.github.djcass44:colorpickerdialog:1.4'
 }
 ```
 
