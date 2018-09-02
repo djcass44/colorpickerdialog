@@ -2,6 +2,7 @@ package com.django.colorpicker;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,13 @@ public class MainActivity extends AppCompatActivity implements IColorPickerRecei
                     .setStartColour(lastColour);
             ColorPickerDialog dialog = builder.build();
             dialog.show();
+        });
+        Button button2 = findViewById(R.id.button2);
+        button2.setOnClickListener(view -> {
+            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(this, this)
+                    .setStartColour(lastColour)
+                    .setDefaultColour(ContextCompat.getColor(this, R.color.colorPrimary));
+            builder.build().show();
         });
     }
 

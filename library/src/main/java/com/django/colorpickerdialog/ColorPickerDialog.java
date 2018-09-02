@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,10 +20,12 @@ public class ColorPickerDialog extends Dialog {
     private IColorPickerReceivable receivable;
     private String textPositive;
     private String textNegative;
-    private int startColour = Color.WHITE;
+    private int startColour;
+    private int defaultColour;
 
     private Button buttonPositive;
     private Button buttonNegative;
+    private Button buttonNeutral;
 
     private SeekBar seekR;
     private SeekBar seekG;
@@ -37,13 +40,14 @@ public class ColorPickerDialog extends Dialog {
 
     private final String INSTANCE_COLOUR = "COLOUR";
 
-    private ColorPickerDialog(@NonNull Context context, @NonNull IColorPickerReceivable receivable, String textPositive, String textNegative, int startColour) {
+    private ColorPickerDialog(@NonNull Context context, @NonNull IColorPickerReceivable receivable, String textPositive, String textNegative, int startColour, int defaultColour) {
         super(context);
         this.context = context;
         this.receivable = receivable;
         this.textPositive = textPositive;
         this.textNegative = textNegative;
         this.startColour = startColour;
+        this.defaultColour = defaultColour;
     }
 
     @Override
@@ -62,6 +66,9 @@ public class ColorPickerDialog extends Dialog {
 
         buttonNegative = findViewById(R.id.buttonNegative);
         buttonPositive = findViewById(R.id.buttonPositive);
+        buttonNeutral = findViewById(R.id.buttonNeutral);
+        Log.d(getClass().getSimpleName(), "onCreate: " + defaultColour);
+        buttonNeutral.setVisibility(defaultColour != -1 ? View.VISIBLE : View.GONE);
 
         seekR = findViewById(R.id.seekR);
         textR = findViewById(R.id.textR);
@@ -167,6 +174,10 @@ public class ColorPickerDialog extends Dialog {
             receivable.onColorChosen(colour);
             dismiss();
         });
+        buttonNeutral.setOnClickListener(view -> {
+            startColour = defaultColour;
+            setInitialValues();
+        });
     }
     public static class Builder {
         private Context context;
@@ -174,6 +185,7 @@ public class ColorPickerDialog extends Dialog {
         private String textPositive;
         private String textNegative;
         private int startColour = Color.WHITE;
+        private int defaultColour = -1;
 
         public Builder(@NonNull Context context, @NonNull IColorPickerReceivable receivable) {
             this.context = context;
@@ -194,12 +206,18 @@ public class ColorPickerDialog extends Dialog {
             this.startColour = startColour;
             return this;
         }
+
+        public Builder setDefaultColour(int defaultColour) {
+            this.defaultColour = defaultColour;
+            return this;
+        }
+
         public ColorPickerDialog build() {
             if(textPositive == null || textPositive.isEmpty())
                 textPositive = context.getString(android.R.string.ok);
             if(textNegative == null || textNegative.isEmpty())
                 textNegative = context.getString(android.R.string.cancel);
-            return new ColorPickerDialog(context, receivable, textPositive, textNegative, startColour);
+            return new ColorPickerDialog(context, receivable, textPositive, textNegative, startColour, defaultColour);
         }
     }
 }

@@ -107,6 +107,18 @@
             android:layout_toStartOf="@id/buttonPositive"
             android:background="?attr/selectableItemBackground"
             style="?attr/borderlessButtonStyle"/>
+        <Button
+            android:id="@+id/buttonNeutral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_neutral"
+            android:textColor="@color/colorAccent"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/buttonNegative"
+            android:gravity="start|center_vertical"
+            android:padding="16dp"
+            android:background="?attr/selectableItemBackground"
+            style="?attr/borderlessButtonStyle"/>
 
     </RelativeLayout>
 
