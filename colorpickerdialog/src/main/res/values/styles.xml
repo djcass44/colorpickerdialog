@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="SeekBarRed" parent="Base.Widget.AppCompat.SeekBar">
+        <item name="colorAccent">#f44336</item>
+    </style>
+    <style name="SeekBarGreen" parent="Base.Widget.AppCompat.SeekBar">
+        <item name="colorAccent">#4CAF50</item>
+    </style>
+    <style name="SeekBarBlue" parent="Base.Widget.AppCompat.SeekBar">
+        <item name="colorAccent">#2196F3</item>
+    </style>
+
+</resources>
